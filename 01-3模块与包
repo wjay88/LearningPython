@@ -1,0 +1,45 @@
+模块与包以及发布
+
+1、模块其实就是.py文件
+2、包其实就是文件夹
+3、调用时用一个python文件调用其他的python文件。
+4、调用可以是不同包中调用
+5、要调用一个包，必须再报的目录下有__init__.py文件。
+6、其他包调用也需要__init__.py。因此在每隔包下都要有一个__init__.py来初始化。
+
+
+在__init__.py中写上可以调用的包：
+__all__ = ['模块名'，'模块名']
+
+外部调用用此方式：
+from msgTest import *
+
+
+
+
+模块和包的生成发布
+
+在Linux环境下：
+	1.在包当前路径下：和要发布的包挨着。
+		touch setup.py
+		vi setup.py
+			from distutils.core import setup
+
+			setup(name="dongGe",version="1.0",description="dongge's module", author="dongge", py_moduels=['suba.getMsg','suba.sendMsg','subb.ceshi'])
+
+		构建模块：
+		python3 setup.py build
+
+		生成发布压缩包：
+		python3 setup.py sdist
+
+		tree
+		此时将包放入到bulid/lib中
+
+		此时别人可以从dist中将制作的包拷贝安装。
+		python3 setup.py install
+
+在windows中pycharm中生成：
+
+在 tools|Run setup.py Task中完成创建。
+

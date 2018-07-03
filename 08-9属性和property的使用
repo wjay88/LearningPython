@@ -1,0 +1,57 @@
+property的使用
+
+class Test(object):
+	def __init__(self):
+		self.__num = 100
+
+	def getNum(self):
+        return self.__num
+
+	def setNum(self,newNum):
+		print("---setter---")
+		self.__num = newNum
+	num = property(getNum, setNum)
+
+
+t = test()
+
+# print(t.__num)
+print(t.num)
+
+t.setNum(50)
+print(t.num)
+
+
+t.num = 200
+print(t.num)
+
+知识点：
+	1、私有化：
+		xx: 公有变量
+		_x: 单前置下划线,私有化属性或方法，from somemodule import *禁止导入,类对象和子类可以访问
+		__xx：双前置下划线,避免与子类中的属性命名冲突，无法在外部直接访问(名字重整所以访问不到)
+		__xx__:双前后下划线,用户名字空间的魔法对象或属性。例如:__init__ , __ 不要自己发明这样的名字
+		xx_:单后置下划线,用于避免与Python关键词的冲突
+
+		两个下划线表示变量私有化。无法被外部修改调用。
+		但是私有属性可以通过添加getter和setter方法来调用修改。
+
+	2、property属性。
+		通过property可以将属性功能完成多样化，支持选择，如果需要读就读，如果需要设置就设置。
+
+	3、@property将属性修饰为属性函数。可以完成对属性赋值时必要的检查。
+
+	class Money(object):
+	    def __init__(self):
+	        self.__money = 0
+
+	    @property
+	    def money(self):     	# 此处将money属性，直接定义为函数：
+	        return self.__money
+
+	    @money.setter 	# 将money属性设置为函数。
+	    def money(self, value):		# 此处将money属性，直接定义为函数：
+	        if isinstance(value, int):
+	            self.__money = value
+	        else:
+	            print("error:不是整型数字")
